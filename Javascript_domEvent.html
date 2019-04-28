@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .test1{
+            width:300px;
+            height: 300px;
+            background-color:pink;
+        }
+        .test2{
+            width:100px;
+            height: 100px;
+            background-color:blue;
+        }
+        .test3{
+            width:300px;
+            height: 300px;
+            background-color:aqua;
+        }
+    </style>
+</head>
+<body>
+    <h1>不同div，构建父与子的关系，事件输出</h1>
+    <p>请问：点击div.test2后，数字1和2，谁先被打印出来</p>
+    <div class="test1">
+        <div class="test2"></div>
+    </div>
+    <script>
+        //知识点：addEventListener(tag,function,boolean)一个布尔值，true表示在捕获节点调用事件处理程序，false表示在冒泡节点调用处理程序
+
+        // document.querySelector('.test1').addEventListener('click',function(){
+        //     console.log(1);
+        // });
+        // document.querySelector('.test2').addEventListener('click',function(){
+        //     console.log(2);
+        // });
+        //答案：2，1   
+        //原因：事件冒泡，先到2，再到1
+
+        // document.querySelector('.test1').addEventListener('click',function(){
+        //     console.log(1);
+        // },true);
+        // document.querySelector('.test2').addEventListener('click',function(){
+        //     console.log(2);
+        // },true);
+        //答案：1，2
+        //原因：事件捕获 ，1，2
+
+        // document.querySelector('.test1').addEventListener('click',function(){
+        //     console.log(1);
+        // });
+        // document.querySelector('.test2').addEventListener('click',function(){
+        //     console.log(2);
+        // },true);
+        //答案：2，1
+
+        // document.querySelector('.test1').addEventListener('click',function(){
+        //     console.log(1);
+        // },true);
+        // document.querySelector('.test2').addEventListener('click',function(){
+        //     console.log(2);
+        // });
+        //答案：1,2
+
+    </script>
+    <h1>同一个div，不同阶段的输出</h1>
+    <p>请问：点击div.test3后，数字1和2，谁先被打印出来</p>
+    <div class="test3">test3</div>
+    <script>
+        //  document.querySelector('.test3').addEventListener('click',function(){
+        //     console.log(1);
+        // },true);
+        // document.querySelector('.test3').addEventListener('click',function(){
+        //     console.log(2);
+        // });  
+        //answer:1,2
+
+        // document.querySelector('.test3').addEventListener('click',function(){
+        //     console.log(1);
+        // });
+        // document.querySelector('.test3').addEventListener('click',function(){
+        //     console.log(2);
+        // },true);  
+        //answer :1,2
+        //原因：如果被监听的元素没有子元素，那么哪个监听代码写在前面，就先执行哪个；
+
+    </script>
+    <h1>终极一题</h1>
+    <div>点击label标签，数字1和2的顺序是怎么样的</div>
+    <label>Click me <input type="text"></label>
+    <script>
+          document.querySelector('label').addEventListener('click',function(){
+            console.log(1);
+        });
+        document.querySelector('input').addEventListener('click',function(){
+            console.log(2);
+        });  
+        /*
+        因为label和input是有绑定的
+        点击label后，浏览器自动帮你再点击一次label
+        过程就是先进行一次事件机制，这一次对内部input元素的事件监听是不管不问的，所以先打出1
+        结束后，再进行一次事件机制，这一次，按照正常事件机制流程走，所以接着打出了2,1
+        */
+    </script>
+</body>
+</html>
